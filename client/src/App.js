@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+let API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+if (!API_URL.startsWith('http')) {
+    API_URL = `https://${API_URL}`;
+}
 
 function App() {
     const [file, setFile] = useState(null);
