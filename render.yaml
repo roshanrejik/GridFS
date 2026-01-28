@@ -1,0 +1,27 @@
+services:
+  # Backend Node.js Service
+  - type: web
+    name: gridfs-server
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: MONGODB_URI
+        sync: false # User must provide this secret (e.g. MongoDB Atlas URI)
+
+  # Frontend Static Site
+  - type: web
+    name: gridfs-client
+    env: node
+    rootDir: client
+    buildCommand: npm install && npm run build
+    startCommand: npx serve -s build -l $PORT
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          type: web
+          name: gridfs-server
+          property: host

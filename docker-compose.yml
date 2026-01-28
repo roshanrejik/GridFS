@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "5001:5001"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/gridfs-demo
+      - PORT=5001
+    depends_on:
+      - mongo
+
+  client:
+    build: ./client
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5001
+      # Note: For client-side React in Docker, env vars are tricky at runtime.
+      # Usually need build-time args or a runtime config script.
+      # For local docker-compose, localhost:5001 works if accessed from host browser.
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
