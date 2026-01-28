@@ -84,6 +84,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="data-sync"
+                options={{
+                    drawerLabel: 'Data Sync PoC',
+                    title: 'Consistency & Sync',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="sync-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
