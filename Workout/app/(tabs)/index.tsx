@@ -2,6 +2,7 @@ import { Image } from 'expo-image';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
+import { AccessibilityDemo } from '@/components/accessibility-demo';
 import { HelloWave } from '@/components/hello-wave';
 import { LoadingSpinner } from '@/components/loading-spinner';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -12,6 +13,7 @@ import { Link, useRouter } from 'expo-router';
 export default function HomeScreen() {
   const router = useRouter();
   const [isSpinning, setIsSpinning] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const showSpinner = () => {
     setIsSpinning(true);
@@ -126,6 +128,23 @@ export default function HomeScreen() {
           onPress={() => router.push('/details')}>
           <ThemedText style={styles.transitionButtonText}>Go to Details</ThemedText>
         </TouchableOpacity>
+      </ThemedView>
+
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Accessibility PoC</ThemedText>
+        <ThemedText>
+          The component below uses <ThemedText type="defaultSemiBold">accessibilityRole</ThemedText> and
+          <ThemedText type="defaultSemiBold">accessibilityState</ThemedText> to provide a clear role and state for screen readers.
+        </ThemedText>
+        <AccessibilityDemo
+          checked={isSubscribed}
+          onToggle={() => setIsSubscribed(!isSubscribed)}
+        />
+        <AccessibilityDemo
+          checked={false}
+          onToggle={() => { }}
+          disabled={true}
+        />
       </ThemedView>
 
       <LoadingSpinner visible={isSpinning} message="Fetching Data..." />
