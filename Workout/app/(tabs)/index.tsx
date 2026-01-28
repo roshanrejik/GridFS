@@ -1,13 +1,24 @@
 import { Image } from 'expo-image';
+import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
+import { LoadingSpinner } from '@/components/loading-spinner';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 
 export default function HomeScreen() {
+  const [isSpinning, setIsSpinning] = useState(false);
+
+  const showSpinner = () => {
+    setIsSpinning(true);
+    setTimeout(() => {
+      setIsSpinning(false);
+    }, 3000);
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -92,6 +103,19 @@ export default function HomeScreen() {
           <ThemedText style={styles.errorButtonText}>Trigger Global Error</ThemedText>
         </TouchableOpacity>
       </ThemedView>
+
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Custom Loading Spinner PoC</ThemedText>
+        <ThemedText>
+          Tap the button below to see the custom loading spinner overlay. It will automatically
+          dismiss after 3 seconds.
+        </ThemedText>
+        <TouchableOpacity style={styles.spinnerButton} onPress={showSpinner}>
+          <ThemedText style={styles.spinnerButtonText}>Show Loading Spinner</ThemedText>
+        </TouchableOpacity>
+      </ThemedView>
+
+      <LoadingSpinner visible={isSpinning} message="Fetching Data..." />
     </ParallaxScrollView>
   );
 }
@@ -121,6 +145,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   errorButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  spinnerButton: {
+    backgroundColor: '#007AFF',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  spinnerButtonText: {
     color: 'white',
     fontWeight: 'bold',
   },
