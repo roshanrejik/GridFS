@@ -134,6 +134,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="deep-linking"
+                options={{
+                    drawerLabel: 'Deep Linking',
+                    title: 'URL Routing',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="link-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
