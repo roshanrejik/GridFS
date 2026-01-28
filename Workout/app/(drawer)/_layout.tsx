@@ -114,6 +114,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="image-background"
+                options={{
+                    drawerLabel: 'Background Overlays',
+                    title: 'ImageBackground PoC',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="image-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
