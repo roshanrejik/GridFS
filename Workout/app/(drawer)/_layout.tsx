@@ -124,6 +124,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="layout-debug"
+                options={{
+                    drawerLabel: 'Layout Debugger',
+                    title: 'Visual Debugging',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="grid-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
