@@ -7,9 +7,10 @@ import { LoadingSpinner } from '@/components/loading-spinner';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [isSpinning, setIsSpinning] = useState(false);
 
   const showSpinner = () => {
@@ -115,6 +116,18 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </ThemedView>
 
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Custom Transition PoC</ThemedText>
+        <ThemedText>
+          Tap the button below to see a custom "slide from bottom" transition to the Details screen.
+        </ThemedText>
+        <TouchableOpacity
+          style={styles.transitionButton}
+          onPress={() => router.push('/details')}>
+          <ThemedText style={styles.transitionButtonText}>Go to Details</ThemedText>
+        </TouchableOpacity>
+      </ThemedView>
+
       <LoadingSpinner visible={isSpinning} message="Fetching Data..." />
     </ParallaxScrollView>
   );
@@ -156,6 +169,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   spinnerButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  transitionButton: {
+    backgroundColor: '#34C759',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  transitionButtonText: {
     color: 'white',
     fontWeight: 'bold',
   },
