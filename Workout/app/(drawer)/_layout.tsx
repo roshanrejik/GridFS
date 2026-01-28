@@ -144,6 +144,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="lists-poc"
+                options={{
+                    drawerLabel: 'Lists & Virtualization',
+                    title: 'Efficient Rendering',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="list-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
