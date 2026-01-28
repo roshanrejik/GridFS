@@ -104,6 +104,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="orientation"
+                options={{
+                    drawerLabel: 'Orientation Demo',
+                    title: 'Responsive Layout',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="resize-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
