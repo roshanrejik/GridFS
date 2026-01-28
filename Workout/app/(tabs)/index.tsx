@@ -1,10 +1,12 @@
 import { Image } from 'expo-image';
 import React, { useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import Animated, { useAnimatedRef, useScrollOffset } from 'react-native-reanimated';
 
 import { AccessibilityDemo } from '@/components/accessibility-demo';
 import { HelloWave } from '@/components/hello-wave';
 import { LoadingSpinner } from '@/components/loading-spinner';
+import { ParallaxCard } from '@/components/parallax-card';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -12,6 +14,9 @@ import { Link, useRouter } from 'expo-router';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollOffset(scrollRef);
+
   const [isSpinning, setIsSpinning] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
@@ -24,6 +29,7 @@ export default function HomeScreen() {
 
   return (
     <ParallaxScrollView
+      externalScrollRef={scrollRef}
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
@@ -88,7 +94,23 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
-
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Parallax Cards PoC</ThemedText>
+        <ThemedText>
+          The cards below demonstrate a parallax effect. Notice how the background images shift
+          at a different rate than the scroll.
+        </ThemedText>
+        <ParallaxCard
+          scrollY={scrollOffset}
+          title="Mountain Adventure"
+          imageSource={{ uri: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000' }}
+        />
+        <ParallaxCard
+          scrollY={scrollOffset}
+          title="Forest Escape"
+          imageSource={{ uri: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1000' }}
+        />
+      </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">ErrorUtils PoC</ThemedText>
         <ThemedText>
@@ -146,6 +168,8 @@ export default function HomeScreen() {
           disabled={true}
         />
       </ThemedView>
+
+
 
       <LoadingSpinner visible={isSpinning} message="Fetching Data..." />
     </ParallaxScrollView>
