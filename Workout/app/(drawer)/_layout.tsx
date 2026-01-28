@@ -94,6 +94,16 @@ export default function DrawerLayout() {
                     ),
                 }}
             />
+            <Drawer.Screen
+                name="webview-poc"
+                options={{
+                    drawerLabel: 'WebView Bridge',
+                    title: 'Native-Web Bridge',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="globe-outline" size={size} color={color} />
+                    ),
+                }}
+            />
         </Drawer>
     );
 }
