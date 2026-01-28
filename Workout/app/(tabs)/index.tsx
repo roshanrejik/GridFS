@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -74,6 +74,24 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">ErrorUtils PoC</ThemedText>
+        <ThemedText>
+          Tap the button below to trigger an asynchronous error in 2 seconds. This error will be
+          caught by the global handler in <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText>.
+        </ThemedText>
+        <TouchableOpacity
+          style={styles.errorButton}
+          onPress={() => {
+            console.log('Error will be triggered in 2s...');
+            setTimeout(() => {
+              throw new Error('This is a simulated global asynchronous error!');
+            }, 2000);
+          }}>
+          <ThemedText style={styles.errorButtonText}>Trigger Global Error</ThemedText>
+        </TouchableOpacity>
+      </ThemedView>
     </ParallaxScrollView>
   );
 }
@@ -94,5 +112,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  errorButton: {
+    backgroundColor: '#ff4444',
+    padding: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  errorButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
